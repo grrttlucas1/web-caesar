@@ -16,6 +16,7 @@
 #
 import webapp2
 import caesar
+import cgi
 
 def build_page(textarea_content):
     rot_label = "<label>Rotate by:</label>"
@@ -40,7 +41,8 @@ class MainHandler(webapp2.RequestHandler):
         msg = self.request.get("msg")
         rotation = int(self.request.get("rotation"))
         encrypted_msg = caesar.encrypt(msg, rotation)
-        content = build_page(encrypted_msg)
+        escaped_msg = cgi.escape(encrypted_msg)
+        content = build_page(escaped_msg)
         self.response.write(content)
 
 app = webapp2.WSGIApplication([
