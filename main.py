@@ -15,10 +15,13 @@
 # limitations under the License.
 #
 import webapp2
+import caesar
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        msg = "Hellooo World!"
+        encrypted_msg = caesar.encrypt(msg, 13)
+        self.response.write(encrypted_msg)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
